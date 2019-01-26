@@ -1,0 +1,466 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.7
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 25, 2019 at 02:44 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `beventdb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement`
+--
+
+CREATE TABLE `announcement` (
+  `Announcement_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  `Subject` varchar(50) NOT NULL,
+  `Description` varchar(250) NOT NULL,
+  `DateAdded` date NOT NULL,
+  `DateModified` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eventreservation`
+--
+
+CREATE TABLE `eventreservation` (
+  `Reservation_id` int(11) NOT NULL,
+  `Event_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  `Status` varchar(50) NOT NULL,
+  `DateTimeAdded` datetime NOT NULL,
+  `DateTimeModified` datetime NOT NULL,
+  `DateEnded` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oevent`
+--
+
+CREATE TABLE `oevent` (
+  `Event_id` int(11) NOT NULL,
+  `StudentOrg_id` int(11) NOT NULL,
+  `Venue_id` int(11) NOT NULL,
+  `EventName` varchar(50) NOT NULL,
+  `Image` varchar(255) NOT NULL,
+  `Description` varchar(250) NOT NULL,
+  `Slot` varchar(50) NOT NULL,
+  `Status` varchar(50) NOT NULL,
+  `TicketDuration` varchar(50) NOT NULL,
+  `TimeStartOfEvent` time NOT NULL,
+  `TimeEndOfEvent` time NOT NULL,
+  `DateStart` date NOT NULL,
+  `DateEnd` date NOT NULL,
+  `DateAdded` date NOT NULL,
+  `DateModified` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `omembertable`
+--
+
+CREATE TABLE `omembertable` (
+  `OrgMember_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  `StudentOrg_id` int(11) NOT NULL,
+  `Position` varchar(50) NOT NULL,
+  `DateAdded` date NOT NULL,
+  `DateModified` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `omembertable`
+--
+
+INSERT INTO `omembertable` (`OrgMember_id`, `User_id`, `StudentOrg_id`, `Position`, `DateAdded`, `DateModified`) VALUES
+(3, 2, 2, 'president', '2019-01-25', '2019-01-25'),
+(4, 1, 2, 'vice president', '2019-01-25', '2019-01-25'),
+(5, 1, 2, 'vice president', '2019-01-25', '2019-01-25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ostudentorgtable`
+--
+
+CREATE TABLE `ostudentorgtable` (
+  `StudentOrg_id` int(11) NOT NULL,
+  `Campus_id` int(11) NOT NULL,
+  `Image` varchar(255) NOT NULL,
+  `OrgName` varchar(50) NOT NULL,
+  `Status` varchar(50) NOT NULL,
+  `Description` varchar(255) NOT NULL,
+  `EstablishedDate` date NOT NULL,
+  `DateModified` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ostudentorgtable`
+--
+
+INSERT INTO `ostudentorgtable` (`StudentOrg_id`, `Campus_id`, `Image`, `OrgName`, `Status`, `Description`, `EstablishedDate`, `DateModified`) VALUES
+(2, 1, 'pic.png', 'AIM', '', 'AIM to be the best swords man ', '2017-07-20', '2019-01-22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scampustable`
+--
+
+CREATE TABLE `scampustable` (
+  `Campus_id` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `scampustable`
+--
+
+INSERT INTO `scampustable` (`Campus_id`, `Name`) VALUES
+(1, 'TAFT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scoursetable`
+--
+
+CREATE TABLE `scoursetable` (
+  `Course_id` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `CourseCode` varchar(50) NOT NULL,
+  `CourseDepartment` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `scoursetable`
+--
+
+INSERT INTO `scoursetable` (`Course_id`, `Name`, `CourseCode`, `CourseDepartment`) VALUES
+(1, 'Information System', 'BS-IS', 'IS');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `svenuetable`
+--
+
+CREATE TABLE `svenuetable` (
+  `Venue_id` int(11) NOT NULL,
+  `Campus_id` int(11) NOT NULL,
+  `Floor` varchar(50) NOT NULL,
+  `VenueName` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ucontacttables`
+--
+
+CREATE TABLE `ucontacttables` (
+  `Contact_id` int(11) NOT NULL,
+  `ContactNumber` varchar(20) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `idNumber` varchar(20) NOT NULL,
+  `isEmailConfirmed` tinyint(4) NOT NULL,
+  `token` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ucontacttables`
+--
+
+INSERT INTO `ucontacttables` (`Contact_id`, `ContactNumber`, `Email`, `idNumber`, `isEmailConfirmed`, `token`) VALUES
+(1, '81263418092', 'lancebryan.to@benilde.edu.ph', '11526812', 1, ''),
+(2, '09253051705', 'joseenrico.victoria@benilde.edu.ph', '11526777', 1, ''),
+(3, '', 'SASASA@benilde.edu.ph', '2131213', 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ucredentialtable`
+--
+
+CREATE TABLE `ucredentialtable` (
+  `Credential_id` int(11) NOT NULL,
+  `UserName` varchar(50) NOT NULL,
+  `Password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ucredentialtable`
+--
+
+INSERT INTO `ucredentialtable` (`Credential_id`, `UserName`, `Password`) VALUES
+(1, '11526812', '$2y$10$cVr9QVBm4bVlVHhRWzkIc.bBuKkP7vOewRvbJmWmiNdbOfh0UCaRq'),
+(2, '11526777', '$2y$10$1MkgLvF4jyW7bhpDQ4VlZO7d53yC0CqFUa/zViKdHCV6T4wiK/8I2'),
+(3, '2131213', '$2y$10$slT7nMVGaxo/XrUAcSjGhOSFaLikv.KVgfm8fPk2/kbtCn8ytM8fG'),
+(4, '11526777', 'benilde');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `utimestaptable`
+--
+
+CREATE TABLE `utimestaptable` (
+  `TimeStamp_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  `TimeLog` date NOT NULL,
+  `Description` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `utimestaptable`
+--
+
+INSERT INTO `utimestaptable` (`TimeStamp_id`, `User_id`, `TimeLog`, `Description`) VALUES
+(1, 0, '2019-01-19', 'Logged In'),
+(2, 0, '2019-01-20', 'Logged In'),
+(3, 0, '2019-01-20', 'Logged In'),
+(4, 0, '2019-01-20', 'Logged In');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uuserroles`
+--
+
+CREATE TABLE `uuserroles` (
+  `UR_id` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `uuserroles`
+--
+
+INSERT INTO `uuserroles` (`UR_id`, `Name`) VALUES
+(1, 'Admin'),
+(2, 'Officer'),
+(3, 'Member');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uusertable`
+--
+
+CREATE TABLE `uusertable` (
+  `User_id` int(11) NOT NULL,
+  `Credential_id` int(11) NOT NULL,
+  `UR_id` int(11) NOT NULL,
+  `Contact_id` int(11) DEFAULT NULL,
+  `Course_id` int(6) NOT NULL,
+  `FirstName` varchar(50) NOT NULL,
+  `LastName` varchar(50) NOT NULL,
+  `DateAdded` datetime NOT NULL,
+  `DateModified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `uusertable`
+--
+
+INSERT INTO `uusertable` (`User_id`, `Credential_id`, `UR_id`, `Contact_id`, `Course_id`, `FirstName`, `LastName`, `DateAdded`, `DateModified`) VALUES
+(1, 1, 2, 1, 1, 'sasa', 'sasassa', '2019-01-17 08:09:41', '2019-01-17 08:09:41'),
+(2, 2, 3, 2, 1, 'enrico', 'victoria', '2019-01-20 03:50:14', '2019-01-20 03:50:14'),
+(3, 3, 1, 3, 0, 'SASASA', 'SASASA', '2019-01-24 10:23:11', '2019-01-24 10:23:11');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `announcement`
+--
+ALTER TABLE `announcement`
+  ADD PRIMARY KEY (`Announcement_id`);
+
+--
+-- Indexes for table `eventreservation`
+--
+ALTER TABLE `eventreservation`
+  ADD PRIMARY KEY (`Reservation_id`);
+
+--
+-- Indexes for table `oevent`
+--
+ALTER TABLE `oevent`
+  ADD PRIMARY KEY (`Event_id`);
+
+--
+-- Indexes for table `omembertable`
+--
+ALTER TABLE `omembertable`
+  ADD PRIMARY KEY (`OrgMember_id`);
+
+--
+-- Indexes for table `ostudentorgtable`
+--
+ALTER TABLE `ostudentorgtable`
+  ADD PRIMARY KEY (`StudentOrg_id`),
+  ADD UNIQUE KEY `Status` (`StudentOrg_id`);
+
+--
+-- Indexes for table `scampustable`
+--
+ALTER TABLE `scampustable`
+  ADD PRIMARY KEY (`Campus_id`);
+
+--
+-- Indexes for table `scoursetable`
+--
+ALTER TABLE `scoursetable`
+  ADD PRIMARY KEY (`Course_id`);
+
+--
+-- Indexes for table `svenuetable`
+--
+ALTER TABLE `svenuetable`
+  ADD PRIMARY KEY (`Venue_id`);
+
+--
+-- Indexes for table `ucontacttables`
+--
+ALTER TABLE `ucontacttables`
+  ADD PRIMARY KEY (`Contact_id`);
+
+--
+-- Indexes for table `ucredentialtable`
+--
+ALTER TABLE `ucredentialtable`
+  ADD PRIMARY KEY (`Credential_id`);
+
+--
+-- Indexes for table `utimestaptable`
+--
+ALTER TABLE `utimestaptable`
+  ADD PRIMARY KEY (`TimeStamp_id`);
+
+--
+-- Indexes for table `uuserroles`
+--
+ALTER TABLE `uuserroles`
+  ADD PRIMARY KEY (`UR_id`);
+
+--
+-- Indexes for table `uusertable`
+--
+ALTER TABLE `uusertable`
+  ADD PRIMARY KEY (`User_id`),
+  ADD KEY `Credential_id` (`Credential_id`),
+  ADD KEY `Credential_id_2` (`Credential_id`),
+  ADD KEY `Credential_id_3` (`Credential_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `announcement`
+--
+ALTER TABLE `announcement`
+  MODIFY `Announcement_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `eventreservation`
+--
+ALTER TABLE `eventreservation`
+  MODIFY `Reservation_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `oevent`
+--
+ALTER TABLE `oevent`
+  MODIFY `Event_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `omembertable`
+--
+ALTER TABLE `omembertable`
+  MODIFY `OrgMember_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ostudentorgtable`
+--
+ALTER TABLE `ostudentorgtable`
+  MODIFY `StudentOrg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `scampustable`
+--
+ALTER TABLE `scampustable`
+  MODIFY `Campus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `scoursetable`
+--
+ALTER TABLE `scoursetable`
+  MODIFY `Course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `svenuetable`
+--
+ALTER TABLE `svenuetable`
+  MODIFY `Venue_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ucontacttables`
+--
+ALTER TABLE `ucontacttables`
+  MODIFY `Contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `ucredentialtable`
+--
+ALTER TABLE `ucredentialtable`
+  MODIFY `Credential_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `utimestaptable`
+--
+ALTER TABLE `utimestaptable`
+  MODIFY `TimeStamp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `uuserroles`
+--
+ALTER TABLE `uuserroles`
+  MODIFY `UR_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `uusertable`
+--
+ALTER TABLE `uusertable`
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
