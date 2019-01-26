@@ -1,0 +1,50 @@
+<?php
+include ('master/header1.php');
+
+if(isset($_POST['login_btn'])){
+   
+    $conn = db();
+    $user=$conn->real_escape_string($_POST['user']); 
+    $pass=$conn->real_escape_string($_POST['pass']);
+
+    if($user == "" || $pass == "")
+        echo "<script language='javascript'>alert('Please check you input!')</script>";
+    else{
+        $sql = $conn->query("SELECT UserName, Password, isEmailConfirmed, User_id, UR_id
+            FROM ucredentialtable as uct
+            left join uusertable as uut
+                on uct.Credential_id = uut.Credential_id
+            left join ucontacttables as ct
+                on ct.Contact_id = uut.Contact_id
+
+            WHERE '$user'=UserName");
+
+        if($sql->num_rows > 0){
+
+            $data = $sql->fetch_array();
+            if(password_verify($pass, $data['Password'])){
+
+                if($data['isEmailConfirmed'] == 0){
+                    echo "<script language='javascript'>alert('Please verify email!')</script>";
+                }else{
+
+                    $_SESSION['user_roles'] = $data['UR_id'];
+                    $_SESSION['user_id'] = $data['User_id'];
+
+                    $conn->query("INSERT INTO utimestaptable ( User_id, TimeLog, Description) 
+                        VALUES ('$userid', '".date('Y-m-d g:i:s')."', 'Logged In');");
+
+                    if($data['UR_id'] == 1)
+                        header("Location:admin/index.php");
+                    else if($data['UR_id'] == 2)
+                        header("Location:studentofficer/index.php");
+                    else 
+                        header("Location:index.php");
+                }
+            }else
+                echo "<script language='javascript'>alert('Please check you input!')</script>";
+        }else 
+        echo "<script language='javascript'>alert('Please check you input!')</script>";
+    } 
+}
+?>
